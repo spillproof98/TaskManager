@@ -1,0 +1,289 @@
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  background: #0052cc;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.board {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.column {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.left-stripe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 6px;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.task-form label {
+  display: block;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: #1f2937;
+}
+
+.task-form input,
+.task-form select,
+.task-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+
+.task-form input:focus,
+.task-form select:focus,
+.task-form textarea:focus {
+  outline: none;
+  border-color: #0052cc;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.btn.cancel {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn.create {
+  background: #0052cc;
+  color: white;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: -4px;
+}
+.card {
+  position: relative;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.left-stripe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.badges {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.badge {
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  color: #111827;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: #4b5563;
+  margin-top: 4px;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.avatars {
+  display: flex;
+  gap: 4px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  background: #d1d5db;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.priority {
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.column {
+  flex: 1;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  min-height: 300px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #e5e7eb;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+.column-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.task-count {
+  font-size: 13px;
+  color: #6b7280;
+  background: #e5e7eb;
+  border-radius: 12px;
+  padding: 2px 8px;
+}
+
+.task-list {
+  flex: 1;
+}
+
+.empty-column {
+  font-size: 13px;
+  color: #9ca3af;
+  font-style: italic;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: #0041a8;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn,
+.card {
+  transition: all 0.2s ease;
+}
+
+.modal-overlay {
+  backdrop-filter: blur(3px);
+}
+
+@media (max-width: 900px) {
+  .board {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+.task-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 70vh;
+  padding-right: 4px;
+}
+
+.task-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 4px;
+}
