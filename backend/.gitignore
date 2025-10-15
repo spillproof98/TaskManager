@@ -1,3 +1,7 @@
-node_modules
-tasks.json
+node_modules/
+dist/
+.vscode/
 .env
+.DS_Store
+npm-debug.log
+GIT
