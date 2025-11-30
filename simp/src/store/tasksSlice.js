@@ -1,44 +1,113 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
+
+function loadTasks() {
+  try {
+    const stored = localStorage.getItem("tasks");
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveTasks(tasks) {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 const slice = createSlice({
   name: "tasks",
-  initialState: { tasks: [], loading: false, isCreateOpen: false, error: null },
-  reducers: {
-    fetchTasksRequest: (s) => { s.loading = true; s.error = null; },
-    fetchTasksSuccess: (s, a) => { s.loading = false; s.tasks = a.payload; },
-    fetchTasksFailure: (s, a) => { s.loading = false; s.error = a.payload; },
-
-    createTaskRequest: (s) => { s.loading = true; s.error = null; },
-    createTaskSuccess: (s, a) => { s.loading = false; s.tasks.unshift(a.payload); },
-    createTaskFailure: (s, a) => { s.loading = false; s.error = a.payload; },
-
-    updateTaskRequest: (s) => { s.loading = true; s.error = null; },
-    updateTaskSuccess: (s, a) => {
-      s.loading = false;
-      const updated = a.payload;
-      const idx = s.tasks.findIndex((t) => t.id === updated.id);
-      if (idx !== -1) s.tasks[idx] = updated;
-    },
-    updateTaskFailure: (s, a) => { s.loading = false; s.error = a.payload; },
-
-    deleteTaskRequest: (s) => { s.loading = true; s.error = null; },
-    deleteTaskSuccess: (s, a) => {
-      s.loading = false;
-      s.tasks = s.tasks.filter((t) => t.id !== a.payload);
-    },
-    deleteTaskFailure: (s, a) => { s.loading = false; s.error = a.payload; },
-
-    openCreateModal: (s) => { s.isCreateOpen = true; },
-    closeCreateModal: (s) => { s.isCreateOpen = false; },
+  initialState: {
+    tasks: loadTasks(),
+    loading: false,
+    isCreateOpen: false,
+    error: null
   },
+
+  reducers: {
+    fetchTasksRequest: (state) => {
+      state.loading = false;
+    },
+    fetchTasksSuccess: (state) => state,
+    fetchTasksFailure: (state) => state,
+
+    createTaskRequest: (state, action) => {
+      const payload = action.payload;
+
+      const newTask = {
+        id: nanoid(),
+        title: payload.title,
+        description: payload.description || "",
+        type: payload.type,
+        priority: payload.priority,
+
+        status: payload.status || "Todo",
+
+        startDate: payload.startDate,
+        endDate: payload.endDate,
+
+        assignees: payload.assignees || [],
+        due: payload.due || null
+      };
+
+      state.tasks.unshift(newTask);
+      saveTasks(state.tasks);
+      state.loading = false;
+    },
+
+    createTaskSuccess: (s) => s,
+    createTaskFailure: (s) => s,
+
+    updateTaskRequest: (state, action) => {
+      const { id, payload } = action.payload;
+      const idx = state.tasks.findIndex((t) => t.id === id);
+
+      if (idx !== -1) {
+        state.tasks[idx] = {
+          ...state.tasks[idx],
+          ...payload
+        };
+      }
+
+      saveTasks(state.tasks);
+      state.loading = false;
+    },
+
+    updateTaskSuccess: (s) => s,
+    updateTaskFailure: (s) => s,
+
+    deleteTaskRequest: (state, action) => {
+      const id = action.payload;
+      state.tasks = state.tasks.filter((t) => t.id !== id);
+      saveTasks(state.tasks);
+      state.loading = false;
+    },
+
+    deleteTaskSuccess: (s) => s,
+    deleteTaskFailure: (s) => s,
+
+    openCreateModal: (state) => {
+      state.isCreateOpen = true;
+    },
+    closeCreateModal: (state) => {
+      state.isCreateOpen = false;
+    }
+  }
 });
 
 export const {
-  fetchTasksRequest, fetchTasksSuccess, fetchTasksFailure,
-  createTaskRequest, createTaskSuccess, createTaskFailure,
-  updateTaskRequest, updateTaskSuccess, updateTaskFailure,
-  deleteTaskRequest, deleteTaskSuccess, deleteTaskFailure,
-  openCreateModal, closeCreateModal
+  fetchTasksRequest,
+  fetchTasksSuccess,
+  fetchTasksFailure,
+  createTaskRequest,
+  createTaskSuccess,
+  createTaskFailure,
+  updateTaskRequest,
+  updateTaskSuccess,
+  updateTaskFailure,
+  deleteTaskRequest,
+  deleteTaskSuccess,
+  deleteTaskFailure,
+  openCreateModal,
+  closeCreateModal
 } = slice.actions;
 
 export default slice.reducer;

@@ -4,6 +4,10 @@ import { COLOR_MAP } from "../utils/constants";
 export default function TaskCard({ task, onClick }) {
   if (!task) return null;
 
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData("text/plain", task.id);
+  };
+
   return (
     <div
       className="card"
@@ -11,6 +15,8 @@ export default function TaskCard({ task, onClick }) {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === "Enter" && onClick?.(task)}
+      draggable
+      onDragStart={handleDragStart}
     >
       <div
         className="left-stripe"
@@ -32,9 +38,7 @@ export default function TaskCard({ task, onClick }) {
       </div>
 
       <h4 className="card-title">{task.title || "Untitled Task"}</h4>
-      {task.description && (
-        <p className="card-desc">{task.description}</p>
-      )}
+      {task.description && <p className="card-desc">{task.description}</p>}
 
       <div className="meta">
         <div className="avatars">
